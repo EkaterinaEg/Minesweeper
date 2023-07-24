@@ -113,6 +113,7 @@ cells.forEach((cell) =>
           el.classList.add("opened");
 
           screen.textContent = "Game over. Try again";
+
           if (timer) clearInterval(timer);
 
           if (el.classList.contains("bugged")) {
@@ -161,6 +162,7 @@ cells.forEach((cell) => {
     }
     if (event.target.classList.contains("closed")) {
       event.target.classList.toggle("marked");
+      checkWin();
       numberBugsLeft();
     }
   });
@@ -276,10 +278,11 @@ function checkWin() {
   const markedBuggs = Array.from(buggedCells).every((el) =>
     el.classList.contains("marked")
   );
+  console.log(markedBuggs);
   const numberClosedLeft = Array.from(cells).filter((cell) =>
     cell.classList.contains("closed")
   ).length;
-
+  console.log(numberClosedLeft);
   if (markedBuggs && numberClosedLeft === ladyBugs) {
     screen.textContent = "You win!!!!!";
     if (timer) clearInterval(timer);
