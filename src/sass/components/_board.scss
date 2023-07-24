@@ -5,6 +5,6 @@
   grid-template-rows: repeat(10, 40px);
   gap: 8px;
   background-color: $cell-opened;
-  background-image: url("/src/img/leaf_light.jpg");
+  background-image: url("../../img/leaf_light.jpg");
   border: 5px solid $board-primary;
 }
