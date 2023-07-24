@@ -1,0 +1,10 @@
+.page__board {
+  display: inline-grid;
+  padding: 20px;
+  grid-template-columns: repeat(10, 40px);
+  grid-template-rows: repeat(10, 40px);
+  gap: 8px;
+  background-color: $cell-opened;
+  background-image: url("../../img/leaf_light.jpg");
+  border: 5px solid $board-primary;
+}

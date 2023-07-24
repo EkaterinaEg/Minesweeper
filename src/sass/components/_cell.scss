@@ -1,0 +1,42 @@
+.board__cell {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 3px solid $board-primary;
+  user-select: none;
+  font-size: 3rem;
+}
+.opened {
+  background-color: transparent;
+  font-size: 3rem;
+  text-align: center;
+  color: white;
+}
+.closed {
+  background-color: $cell-closed;
+  box-shadow: inset 5px 5px 5px $cell-box-shadow;
+  // border: 1px solid rgb(42 42 42);
+}
+
+.bugged {
+  font-size: 3rem;
+  text-align: center;
+  // content: "🐞";
+}
+.marked::before {
+  font-size: 3rem;
+  text-align: center;
+  // content: "❓";
+  content: "🚩";
+}
+.numbered {
+  font-size: 0rem;
+  text-align: center;
+  color: $cell-closed;
+  font-weight: bold;
+  // visibility: hidden;
+  // background-color: transparent;
+}

@@ -1,0 +1,16 @@
+.page__screen {
+  font-size: 5rem;
+  color: $title-screen;
+  text-shadow: 2px 2px 10px $title-screen;
+  font-weight: bold;
+  background-color: $cell-closed;
+  border: 2px solid $title-screen;
+  box-shadow: 0px 0px 10px $title-screen;
+  margin: 0 auto;
+  padding: 5px;
+  //   padding: 10px;
+  //   border: 2px solid $board-primary;
+  max-width: 500px;
+  text-align: center;
+  margin: 10px auto;
+}

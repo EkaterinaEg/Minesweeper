@@ -1,0 +1,19 @@
+//Abstract
+
+@import "./abstract/constants"; //Base
+// @import "base/base";
+@import "./base/base";
+@import "./components/page";
+@import "./components/board";
+@import "./components/cell";
+@import "./components/title";
+@import "./components/container";
+@import "./components/game-status";
+@import "./components/info";
+@import "./components/bugsLeft";
+@import "./components/timer";
+@import "./components/clickNumbers";
+@import "./components/button";
+@import "./components/screen";
+
+// @import "abstract/contants";

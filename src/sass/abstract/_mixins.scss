@@ -1,0 +1,8 @@
+@mixin font($size, $weight, $style) {
+  font-size: $size;
+  font-style: $style;
+  font-weight: $weight;
+}
+// @mixin board ($boardSize, $ladyBugs) {
+//
+// }

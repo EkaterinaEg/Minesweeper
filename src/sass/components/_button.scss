@@ -1,0 +1,21 @@
+.game-status__button {
+  font-size: 3rem;
+  color: $title-screen;
+  background-color: $cell-closed;
+  box-shadow: 0px 0px 10px $title-screen;
+  border: 2px solid $title-screen;
+  background-color: $cell-closed;
+  width: calc(500px / 2 - 70px);
+  text-align: center;
+  margin: 0 auto;
+  padding: 5px;
+  &:hover {
+    background-color: $button-hover-active;
+    color: white;
+  }
+  &:active {
+    background-color: $button-hover-active;
+    border: 2px solid $cell-closed;
+    color: white;
+  }
+}
