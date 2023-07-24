@@ -10,7 +10,7 @@ html {
 
 .page {
   margin: 0 auto;
-  background: url("../../img/birch.jpg") no-repeat center;
+  background: url("/src/img/birch.jpg") no-repeat center;
   background-size: cover;
 }
 
@@ -21,7 +21,7 @@ html {
   grid-template-rows: repeat(10, 40px);
   gap: 8px;
   background-color: rgba(100, 193, 63, 0.3);
-  background-image: url("../../img/leaf_light.jpg");
+  background-image: url("/src/img/leaf_light.jpg");
   border: 5px solid rgba(46, 29, 87, 0.5);
 }
 
