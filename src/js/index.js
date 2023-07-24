@@ -1,5 +1,5 @@
-import PageContent from './page.js';
-import Cell from './cell.js';
+import PageContent from "./page.js";
+import Cell from "./cell.js";
 
 const boardSize = 10;
 const ladyBugs = 10;
@@ -38,14 +38,14 @@ function createBoard(size) {
 
 createBoard(boardSize, ladyBugs);
 // __________________________________________________
-const clickNumbersLabel = document.querySelector('.info__clickNumbers');
+const clickNumbersLabel = document.querySelector(".info__clickNumbers");
 clickNumbersLabel.textContent = clickNumber;
-const button = document.querySelector('.game-status__button');
-const cells = document.querySelectorAll('.board__cell');
-const labelTimer = document.querySelector('.info__timer');
-const bugsLabel = document.querySelector('.info__bugsLeft');
+const button = document.querySelector(".game-status__button");
+const cells = document.querySelectorAll(".board__cell");
+const labelTimer = document.querySelector(".info__timer");
+const bugsLabel = document.querySelector(".info__bugsLeft");
 bugsLabel.textContent = ladyBugs;
-const screen = document.querySelector('.page__screen');
+const screen = document.querySelector(".page__screen");
 
 // ________________________________________________
 // create ladybugs
@@ -60,7 +60,8 @@ function getBugPositions(size, bugs) {
 
     if (
       !positions.some(
-        (position) => position.x === coordinates.x && position.y === coordinates.y,
+        (position) =>
+          position.x === coordinates.x && position.y === coordinates.y
       )
     ) {
       positions.push(coordinates);
@@ -71,7 +72,7 @@ function getBugPositions(size, bugs) {
 }
 
 const cellsCoord = [];
-cells.forEach((cell) => cellsCoord.push(cell.getAttribute('data-coord')));
+cells.forEach((cell) => cellsCoord.push(cell.getAttribute("data-coord")));
 
 const bugsCoor = getBugPositions(boardSize, ladyBugs);
 
@@ -80,90 +81,92 @@ function addBugsToBoard() {
   for (let i = 0; i < cells.length; i += 1) {
     bugsCoor.forEach((bug) => {
       if (
-        Number(cells[i].getAttribute('data-x')) === bug.x
-        && Number(cells[i].getAttribute('data-y')) === bug.y
+        Number(cells[i].getAttribute("data-x")) === bug.x &&
+        Number(cells[i].getAttribute("data-y")) === bug.y
       ) {
-        cells[i].classList.add('bugged');
+        cells[i].classList.add("bugged");
       }
     });
   }
 }
 addBugsToBoard();
 
-cells.forEach((cell) => cell.addEventListener('click', (event) => {
-  if (!timer) {
-    timer = setTimer();
-  }
-  // _________________________________________
-  // const a = Number(event.target.getAttribute("data-x"));
-  // const b = Number(event.target.getAttribute("data-y"));
-  // positions.push({ x: a, y: b });
-
-  // ________________________________________________
-  if (event.target.classList.contains('bugged')) {
-    clickNumbersLabel.textContent = `${clickNumber}`;
-    // screen.textContent = "Game over. Try again";
-    if (!event.target.classList.contains('marked')) {
-      clickNumber += 1;
-      cells.forEach((el) => {
-        el.classList.remove('closed');
-        el.classList.remove('marked');
-        el.classList.add('opened');
-
-        screen.textContent = 'Game over. Try again';
-        if (timer) clearInterval(timer);
-
-        if (el.classList.contains('bugged')) {
-          // eslint-disable-next-line no-param-reassign
-          el.textContent = '🐞';
-        }
-      });
+cells.forEach((cell) =>
+  cell.addEventListener("click", (event) => {
+    if (!timer) {
+      timer = setTimer();
     }
-  } else {
-    if (
-      event.target.classList.contains('closed')
-        && !event.target.classList.contains('marked')
-    ) {
-      clickNumber += 1;
+    // _________________________________________
+    // const a = Number(event.target.getAttribute("data-x"));
+    // const b = Number(event.target.getAttribute("data-y"));
+    // positions.push({ x: a, y: b });
+
+    // ________________________________________________
+    if (event.target.classList.contains("bugged")) {
       clickNumbersLabel.textContent = `${clickNumber}`;
+      // screen.textContent = "Game over. Try again";
+      if (!event.target.classList.contains("marked")) {
+        clickNumber += 1;
+        cells.forEach((el) => {
+          el.classList.remove("closed");
+          el.classList.remove("marked");
+          el.classList.add("opened");
 
-      event.target.classList.remove('closed');
-      event.target.classList.remove('marked');
-      event.target.classList.add('opened');
-      checkWin();
-      revealEmptyCells(event.target);
+          screen.textContent = "Game over. Try again";
+          if (timer) clearInterval(timer);
+
+          if (el.classList.contains("bugged")) {
+            // eslint-disable-next-line no-param-reassign
+            el.textContent = "🐞";
+          }
+        });
+      }
+    } else {
+      if (
+        event.target.classList.contains("closed") &&
+        !event.target.classList.contains("marked")
+      ) {
+        clickNumber += 1;
+        clickNumbersLabel.textContent = `${clickNumber}`;
+
+        event.target.classList.remove("closed");
+        event.target.classList.remove("marked");
+        event.target.classList.add("opened");
+        checkWin();
+        revealEmptyCells(event.target);
+      }
+      if (
+        event.target.classList.contains("closed") &&
+        event.target.classList.contains("marked")
+      ) {
+        return;
+      }
+      if (
+        event.target.classList.contains("numbered") &&
+        !event.target.classList.contains("marked")
+      ) {
+        // eslint-disable-next-line no-param-reassign
+        event.target.style.fontSize = "3rem";
+      }
     }
-    if (
-      event.target.classList.contains('closed')
-        && event.target.classList.contains('marked')
-    ) {
-      return;
-    }
-    if (
-      event.target.classList.contains('numbered')
-        && !event.target.classList.contains('marked')
-    ) {
-      // eslint-disable-next-line no-param-reassign
-      event.target.style.fontSize = '3rem';
-    }
-  }
-}));
+  })
+);
 
 // right mouse button
 cells.forEach((cell) => {
-  cell.addEventListener('contextmenu', (event) => {
+  cell.addEventListener("contextmenu", (event) => {
     event.preventDefault();
     if (!timer) {
       timer = setTimer();
     }
-    if (event.target.classList.contains('closed')) {
-      event.target.classList.toggle('marked');
+    if (event.target.classList.contains("closed")) {
+      event.target.classList.toggle("marked");
       numberBugsLeft();
     }
   });
 });
 // addBugsToBoard();
-const buggedCells = document.querySelectorAll('.bugged');
+const buggedCells = document.querySelectorAll(".bugged");
 // console.log(buggedCells);
 // implement numbers (bugs around)
 
@@ -171,8 +174,8 @@ function nearbyCell(tile) {
   const bugsNumber = [];
   for (let a = -1; a <= 1; a += 1) {
     for (let b = -1; b <= 1; b += 1) {
-      const x = Number(tile.getAttribute('data-x')) + a;
-      const y = Number(tile.getAttribute('data-y')) + b;
+      const x = Number(tile.getAttribute("data-x")) + a;
+      const y = Number(tile.getAttribute("data-y")) + b;
       const c = `${x}${y}`;
       // let c = { tile };
       if (x >= 0 && y >= 0 && x < 10 && y < 10) {
@@ -203,41 +206,41 @@ const numberBugsAround = mappingNearbyCells.reduce((acc, el) => {
 
 cells.forEach((el) => {
   if (
-    numberBugsAround[el.getAttribute('data-coord')]
-    && !el.classList.contains('bugged')
+    numberBugsAround[el.getAttribute("data-coord")] &&
+    !el.classList.contains("bugged")
   ) {
-    el.classList.add('numbered');
+    el.classList.add("numbered");
 
     // eslint-disable-next-line no-param-reassign
-    el.textContent = numberBugsAround[el.getAttribute('data-coord')];
+    el.textContent = numberBugsAround[el.getAttribute("data-coord")];
     // eslint-disable-next-line no-use-before-define
     colorNumbers(el);
   } else {
     // eslint-disable-next-line no-param-reassign
-    el.textContent = '';
+    el.textContent = "";
   }
 });
 
 function colorNumbers(cell) {
-  if (cell.textContent === '1') {
+  if (cell.textContent === "1") {
     // eslint-disable-next-line no-param-reassign
-    cell.style.color = 'dark-green';
+    cell.style.color = "dark-green";
   }
-  if (cell.textContent === '2') {
+  if (cell.textContent === "2") {
     // eslint-disable-next-line no-param-reassign
-    cell.style.color = 'blue';
+    cell.style.color = "blue";
   }
-  if (cell.textContent === '3') {
+  if (cell.textContent === "3") {
     // eslint-disable-next-line no-param-reassign
-    cell.style.color = 'red';
+    cell.style.color = "red";
   }
-  if (cell.textContent === '4') {
+  if (cell.textContent === "4") {
     // eslint-disable-next-line no-param-reassign
-    cell.style.color = 'yellow';
+    cell.style.color = "yellow";
   }
-  if (cell.textContent >= '5') {
+  if (cell.textContent >= "5") {
     // eslint-disable-next-line no-param-reassign
-    cell.style.color = 'white';
+    cell.style.color = "white";
   }
 }
 
@@ -246,23 +249,23 @@ function revealEmptyCells(cell) {
   const d = [];
   cells.forEach((element) => {
     nearbyCell(cell).forEach((el) => {
-      if (element.getAttribute('data-coord') === el[0]) {
+      if (element.getAttribute("data-coord") === el[0]) {
         d.push(element); // list of cells nearby with correct names
       }
     });
   });
   const bugged = d.filter(
-    (el) => el.classList.contains('bugged') || el.classList.contains('marked'),
+    (el) => el.classList.contains("bugged") || el.classList.contains("marked")
   ).length;
   // console.log(bugged);
   if (bugged === 0) {
     d.forEach((elem) => {
-      if (!elem.classList.contains('checked')) {
-        elem.classList.add('checked');
-        elem.classList.remove('closed');
-        elem.classList.add('opened');
+      if (!elem.classList.contains("checked")) {
+        elem.classList.add("checked");
+        elem.classList.remove("closed");
+        elem.classList.add("opened");
         // eslint-disable-next-line no-param-reassign
-        elem.style.fontSize = '3rem';
+        elem.style.fontSize = "3rem";
         revealEmptyCells(elem);
       }
     });
@@ -270,11 +273,15 @@ function revealEmptyCells(cell) {
 }
 // _____________________________________________
 function checkWin() {
-  const markedBuggs = Array.from(buggedCells).every((el) => el.classList.contains('marked'));
-  const numberClosedLeft = Array.from(cells).filter((cell) => cell.classList.contains('closed')).length;
+  const markedBuggs = Array.from(buggedCells).every((el) =>
+    el.classList.contains("marked")
+  );
+  const numberClosedLeft = Array.from(cells).filter((cell) =>
+    cell.classList.contains("closed")
+  ).length;
 
   if (markedBuggs && numberClosedLeft === ladyBugs) {
-    screen.textContent = 'You win!!!!!';
+    screen.textContent = "You win!!!!!";
     if (timer) clearInterval(timer);
   }
 }
@@ -296,7 +303,9 @@ function setTimer() {
 }
 // Calculate how many bugs left after each marked cell
 function numberBugsLeft() {
-  const bugsCount = Array.from(cells).filter((cell) => cell.classList.contains('marked')).length;
+  const bugsCount = Array.from(cells).filter((cell) =>
+    cell.classList.contains("marked")
+  ).length;
   // console.log(bugsCount);
   bugsLabel.textContent = ladyBugs - `${bugsCount}`;
 }
@@ -304,7 +313,7 @@ function numberBugsLeft() {
 // left mouse button
 
 // button New game
-button.addEventListener('click', () => {
-  if (timer) clearInterval(timer);
-  timer = setTimer();
-});
+// button.addEventListener('click', () => {
+//   if (timer) clearInterval(timer);
+//   timer = setTimer();
+// });
